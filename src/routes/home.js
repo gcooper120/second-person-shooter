@@ -6,7 +6,7 @@ var router = express.Router()
  * @return: homepage
  */
 router.get('/', function (req, res) {
-    res.send("Hello world")
+    res.render('scene')
 })
 
 module.exports = router

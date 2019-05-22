@@ -1,9 +1,8 @@
 const express = require('express')
+var exphbs = require('express-handlebars')
 require('dotenv').config();
 
 var bodyParser = require('body-parser');
-
-const sequelize = require('./src/models')
 
 const app = express()
 
@@ -16,12 +15,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(bodyParser.json());
 
+app.set('views','./src/views');
+
+app.engine('hbs', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'hbs');
+
+
 
 app.use('/', home)
 
 
-sequelize.sync().then(() => {
-    app.listen(port, () => {
-      console.log(`Example app listening on port ${process.env.PORT}!`)
-    });
-  });
+app.listen(port, () => {
+  console.log(`App listening on port ${port}!`)
+});
